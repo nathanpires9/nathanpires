@@ -434,13 +434,13 @@
                     <a href="javascript:void(0);" onclick="openModal()">Database Design Project</a>
                 </div>
                 <div class="project-item">
-                    <a href="#">Project 4</a>
+                    <a href="#">coming soon</a>
                 </div>
                 <div class="project-item">
-                    <a href="#">Project 5</a>
+                    <a href="#">coming soon</a>
                 </div>
                 <div class="project-item">
-                    <a href="#">Project 6</a>
+                    <a href="#">coming soon</a>
                 </div>
             </div>
             <!-- Right Arrow -->
@@ -485,7 +485,6 @@
             <button class="close-button" onclick="closeCabrioModal()">Close</button>
         </div>
     </div>
-
     <script>
         // Carousel Functionality
         let currentIndex = 0;
@@ -495,7 +494,7 @@
     
         function moveCarousel(direction) {
             const projectWidth = projects[0].offsetWidth + 20; // Width + margin
-            const maxIndex = Math.ceil(projects.length / 4) - 1; // 4 projects per slide
+            const maxIndex = Math.ceil(projects.length / getProjectsPerSlide()) - 1; // Adjust for mobile
     
             currentIndex += direction;
     
@@ -514,14 +513,14 @@
             }
     
             // Apply the transform
-            carousel.style.transform = `translateX(-${currentIndex * projectWidth * 4}px)`;
+            carousel.style.transform = `translateX(-${currentIndex * projectWidth * getProjectsPerSlide()}px)`;
             updateIndicators();
         }
     
         function goToSlide(index) {
             const projectWidth = projects[0].offsetWidth + 20; // Width + margin
             currentIndex = index;
-            carousel.style.transform = `translateX(-${currentIndex * projectWidth * 4}px)`;
+            carousel.style.transform = `translateX(-${currentIndex * projectWidth * getProjectsPerSlide()}px)`;
             updateIndicators();
         }
     
@@ -534,8 +533,19 @@
         // Handle window resize
         window.addEventListener('resize', () => {
             const projectWidth = projects[0].offsetWidth + 20; // Recalculate width on resize
-            carousel.style.transform = `translateX(-${currentIndex * projectWidth * 4}px)`;
+            carousel.style.transform = `translateX(-${currentIndex * projectWidth * getProjectsPerSlide()}px)`;
         });
+    
+        // Helper function to get the number of projects per slide based on screen size
+        function getProjectsPerSlide() {
+            if (window.innerWidth <= 480) {
+                return 1; // 1 project on mobile
+            } else if (window.innerWidth <= 768) {
+                return 2; // 2 projects on tablets
+            } else {
+                return 4; // 4 projects on desktop
+            }
+        }
     
         // PDF Modal Functions
         function openModal() {
@@ -628,3 +638,4 @@
         // Generate snowflakes at intervals
         setInterval(createSnowflake, 300); // Adjust interval for more/less snowflakes
     </script>
+
